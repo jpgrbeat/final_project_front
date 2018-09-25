@@ -1,0 +1,53 @@
+.App {
+  text-align: center;
+}
+div#user-page {
+  display: grid;
+  grid-template-columns:repeat(6, [col-start] 1fr [col-end]);
+  grid-template-rows: repeat(6, [row-start] 1fr [row-end]) ;
+}
+div#welcome {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  padding: 10%;
+}
+
+div#right-el{
+  margin: 20px;
+  grid-column-start:4;
+  grid-column-end: end;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+div#middle-el{
+  margin: 10px;
+  grid-column-start: 4;
+  grid-column-end: end;
+  grid-row-start: 2;
+  grid-row-end: end;
+}
+div#left-el{
+  margin: 5px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+div#bottom-left-el{
+  margin: 10px;
+  grid-row-start: 2;
+  grid-row-end: 5;
+}
+#edit-user-button{
+  margin: 5px;
+}
+#user-image{
+  margin: 10px;
+}
+div#inner-event-el{
+  text-align: center;
+  margin: 10px;
+}
+#event-detail-button{
+  margin: 10px;
+}
