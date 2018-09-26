@@ -23,8 +23,8 @@ class ProfileCalendar extends React.Component{
   };
 
   render() {
-    let events = this.props.events ? this.props.events.map(e =>  {return{start: new Date(e.date), end: new Date(e.date), title: e.title}}): null
 
+    let events = this.props.events ? this.props.events.map(e =>  {return{start: new Date(new Date(new Date(e.date.replace(/-/g, '\/')).setHours(e.time_start.split(':')[0])).setMinutes(e.time_start.split(':')[1])), end: new Date(new Date(new Date(e.date.replace(/-/g, '\/')).setHours(e.time_end.split(':')[0])).setMinutes(e.time_end.split(':')[1])), title: e.title}}): null
     console.log(this.props.events[0])
     return (
       <div className="Calendar">
