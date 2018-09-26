@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 
 
 const UserCard = props =>{
+  console.log(props.user)
   return(
   <Card>
     <Image id='user-image' src= {props.user.img} />

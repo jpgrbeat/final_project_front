@@ -4,6 +4,7 @@ import {Menu,Dropdown} from 'semantic-ui-react'
 import { NavLink } from "react-router-dom"
 import {connect} from 'react-redux'
 
+
  class NavBar extends React.Component{
 
   state={
@@ -17,7 +18,7 @@ import {connect} from 'react-redux'
       <div>
       <Menu inverted>
           <Menu.Item as={NavLink} exact to= '/' color= 'purple' name='home' onClick={this.handleItemClick} />
-          
+
           <Menu.Item
             name='Profile'
             color= 'yellow'
@@ -35,11 +36,7 @@ import {connect} from 'react-redux'
             exact to= 'add_event'
             onClick={this.handleItemClick}
           />
-          <Dropdown text='Find Friends' pointing className='link item'>
-          <Dropdown.Menu>
-          <Dropdown.Item><FriendSearch/></Dropdown.Item>
-          </Dropdown.Menu>
-          </Dropdown>
+
           <Menu.Item
             name= 'Find Events'
             color='purple'
@@ -58,6 +55,7 @@ import {connect} from 'react-redux'
             active={activeItem === 'Logout'}
             onClick={this.handleItemClick}
           />
+          <FriendSearch/>
         </Menu>
       </div>
 

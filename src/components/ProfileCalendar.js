@@ -7,25 +7,10 @@ import {getEvents} from '../redux/actions/index'
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment))
 class ProfileCalendar extends React.Component{
-  state = {
-    events: [
-      {
-        start: new Date('2018-10-06 03:24:00'),
-        end: new Date('2018-10-06 10:15:00'),
-        title: "Board game things"
-      },
-      {
-        start: new Date(),
-        end: new Date(),
-        title: "More Board Games"
-      }
-    ]
-  };
 
   render() {
-
     let events = this.props.events ? this.props.events.map(e =>  {return{start: new Date(new Date(new Date(e.date.replace(/-/g, '\/')).setHours(e.time_start.split(':')[0])).setMinutes(e.time_start.split(':')[1])), end: new Date(new Date(new Date(e.date.replace(/-/g, '\/')).setHours(e.time_end.split(':')[0])).setMinutes(e.time_end.split(':')[1])), title: e.title}}): null
-    console.log(this.props.events[0])
+
     return (
       <div className="Calendar">
         <Calendar
