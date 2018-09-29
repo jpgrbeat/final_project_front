@@ -4,7 +4,6 @@ import {Menu,Dropdown} from 'semantic-ui-react'
 import { NavLink } from "react-router-dom"
 import {connect} from 'react-redux'
 
-
  class NavBar extends React.Component{
 
   state={
@@ -12,6 +11,7 @@ import {connect} from 'react-redux'
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   render(){
     const {activeItem} = this.state
     return(
@@ -36,6 +36,13 @@ import {connect} from 'react-redux'
             exact to= 'add_event'
             onClick={this.handleItemClick}
           />
+          <Menu.Item
+            name= 'Find Friends'
+            as={NavLink}
+            active={activeItem === 'Find Friends'}
+            exact to = 'add_friends'
+            onClick={this.handleItemClick}
+          />
 
           <Menu.Item
             name= 'Find Events'
@@ -47,15 +54,17 @@ import {connect} from 'react-redux'
             name= 'Add Game'
             color='yellow'
             active={activeItem === 'Add Game'}
+            as={NavLink}
+            exact to= '/add_game'
             onClick={this.handleItemClick}
           />
           <Menu.Item
             name= 'Logout'
             color='purple'
             active={activeItem === 'Logout'}
-            onClick={this.handleItemClick}
+            onClick={this.props.logout}
           />
-          <FriendSearch/>
+
         </Menu>
       </div>
 

@@ -18,5 +18,4 @@ const UserCard = props =>{
   </Card>
 )
 }
-const mapStateToProps = state =>{return{user: state.activeUser}}
-export default connect(mapStateToProps)(UserCard)
+export default UserCard

@@ -9,8 +9,10 @@ import AddEvent from './forms/AddEvent'
 import EventShow from './components/EventShow'
 import {Button} from 'semantic-ui-react'
 import { Route, Switch, Link} from 'react-router-dom'
-
-
+import AddGamePage from './containers/AddGamePage'
+import {setActiveUser,getUserGames,getGames} from './redux/actions/index'
+import {connect} from 'react-redux'
+import FriendSearch from './forms/FriendSearch'
 const requestHelper = url =>
   fetch(url, {
     method: "GET",
@@ -27,27 +29,42 @@ const requestHelper = url =>
 
 class App extends React.Component {
   state={
-    user: ''
+    user: null
   }
 
   fetchUser = () => {
-    requestHelper("http://localhost:3000/me").then(user => { this.updateUser(user)
+    console.log('fetch')
+    requestHelper("http://localhost:3000/me").then(user => { console.log('thisone',user); this.updateUser(user)
   });
   }
+
   componentDidMount(){
+    console.log('mounted')
     if (localStorage.getItem("token")) {
+      console.log('heyy', localStorage.getItem("token"));
       this.fetchUser();
     }
   }
 
   updateUser = user => {
-    this.setState({ user });
-  };
+    console.log(user)
+    this.setState({ user },()=> console.log(this.state));
+    this.props.setActiveUser(user)
+    this.props.getUserGames(user.id)
+    this.props.getGames()
+  }
+
+  logout=()=>{
+    this.setState({ user:null})
+    localStorage.clear()
+    this.props.history.push('/profile')
+
+  }
 
   render(){
     return (
       <React.Fragment>
-      <NavBar/>
+      <NavBar logout={this.logout}/>
       <Switch>
       <Route exact path='/' render={() => (
             <React.Fragment>
@@ -64,14 +81,16 @@ class App extends React.Component {
           )}/>
           <Route exact path='/login' render={(props) => <Login {...props} updateUser={this.updateUser}  />} />
           <Route exact path= '/new_user' render={(props) => <CreateNewUser {...props}/>}/>
-          <Route exact path= '/profile' render={() => <Profile />}/>
+          <Route exact path= '/profile' render={() => <Profile user={this.state.user}/>}/>
           <Route exact path = '/add_event' render={() =><AddEvent />}/>
           <Route exact path= '/edit_user' render={(props) => <EditUser {...props} />}/>
           <Route exact path= '/event' render={(props) => <EventShow {...props} />}/>
+          <Route exact path= '/add_game' render={(props) => <AddGamePage {...props}/>}/>
+          <Route exact path= '/add_friends' render={(props)=> <FriendSearch {...props}/>}/>
         </Switch>
         </React.Fragment>
     );
   }
 }
 
-export default App;
+export default connect(null,{setActiveUser,getUserGames,getGames})(App)

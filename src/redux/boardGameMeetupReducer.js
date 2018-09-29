@@ -15,6 +15,7 @@ function userReducer (state=[],action){
   function activeUserReducer(state=null,action){
     switch(action.type){
       case 'SET_ACTIVE_USER':
+      console.log('here')
         return action.user
       case 'EDIT_USER':
         return action.user
@@ -41,11 +42,39 @@ function userReducer (state=[],action){
         return state
     }
   }
+  function gamesReducer(state=[],action){
+    switch (action.type) {
+      case 'GET_GAMES':
+        return action.payload
+      default:
+        return state
+
+    }
+  }
+  function userGamesReducer(state=[],action){
+    switch (action.type){
+    case 'GET_USER_GAMES':
+      return action.payload
+    default:
+      return state;
+    }
+  }
+  function usersReducer(state=[],action){
+    switch(action.type){
+      case 'GET_USERS':
+        return action.payload
+      default:
+        return state;
+    }
+  }
 
 const rootReducer=combineReducers({
   users: userReducer,
   activeUser: activeUserReducer,
   events: eventsReducer,
-  currentEvent: currentEventReducer
+  currentEvent: currentEventReducer,
+  games: gamesReducer,
+  userGames: userGamesReducer,
+  users: usersReducer
 })
 export default rootReducer

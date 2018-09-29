@@ -5,12 +5,13 @@ import UserCard from '../components/UserCard'
 import Login from '../forms/Login'
 import Friends from '../containers/Friends'
 import Events from '../containers/Events'
+import ProfileGameContainer from '../containers/ProfileGameContainer'
 class Profile extends React.Component{
 
   render(){
 
     return <div id='user-page'>
-    {this.props.activeUser !== null ? <div id= 'right-el'><UserCard/></div> : <div id='right-el'><Login/></div>}
+    {this.props.user !== null ? <div id= 'right-el'><UserCard user={this.props.user}/></div> : null}
     <div id= 'middle-el'>
       <Friends />
     </div>
@@ -20,13 +21,12 @@ class Profile extends React.Component{
     <div id= 'bottom-left-el'>
     <Events/>
     </div>
+    <div id='user-games'>
+    {this.props.user !== null ? <ProfileGameContainer/> : null}
+    </div>
     </div>
   }
 }
-const mapStateToProps= state => {
-  return{
-   activeUser: state.activeUser
- }
-}
 
-export default connect(mapStateToProps)(Profile);
+
+export default Profile

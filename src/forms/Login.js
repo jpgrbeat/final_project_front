@@ -8,6 +8,7 @@ import {Button, Form} from 'semantic-ui-react'
       username: e.target.querySelector('input[name="username"]').value,
       password: e.target.querySelector('input[name="password"]').value
     });
+
     fetch('http://localhost:3000/login', {
       method: "POST",
       headers: {
@@ -25,10 +26,10 @@ import {Button, Form} from 'semantic-ui-react'
         }
       })
       .then(json => {
-        this.props.updateUser(json.user);
+        const user = {...json.user, games: json.user_games}
+        this.props.updateUser(user);
         localStorage.setItem("token", json.token);
         this.props.history.push('/profile')
-        this.props.setActiveUser(json.user)
       });
   };
   render(){
