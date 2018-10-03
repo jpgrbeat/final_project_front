@@ -23,13 +23,15 @@ import {Button, Form} from 'semantic-ui-react'
           alert("login failed");
         } else {
           return res.json();
+
         }
       })
       .then(json => {
-        const user = {...json.user, games: json.user_games}
+        const user = {...json.user, games: json.user_games, invitee_friends: json.invitee_friends, invitor_friends: json.invitor_friends}
         this.props.updateUser(user);
         localStorage.setItem("token", json.token);
         this.props.history.push('/profile')
+        this.props.setActiveUser(json.user)
       });
   };
   render(){

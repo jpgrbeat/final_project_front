@@ -6,7 +6,10 @@ import{
   SET_CURRENT_EVENT,
   GET_GAMES,
   GET_USER_GAMES,
-  GET_USERS
+  GET_USERS,
+  SET_FRIENDS,
+  DROP_GAME,
+  ADD_FRIEND
 } from'./types'
 import { push } from 'react-router-redux';
 
@@ -17,7 +20,7 @@ export function setActiveUser(user){
 //
 export function editUser(user){
   return function (dispatch){
-    fetch(`http://localhost:3000/users/${user.id}`,{
+    return fetch(`http://localhost:3000/users/${user.id}`,{
     method: 'PATCH',
     headers:{
       'Content-Type': 'application/json',
@@ -34,7 +37,10 @@ export function editUser(user){
     })
   })
   .then(res => res.json())
-  .then(dispatch({type: EDIT_USER, user: user}))
+  .then(json=>{
+    dispatch({type: EDIT_USER, user: user})
+    return true
+  })
 }
 }
 export function getEvents(){
@@ -66,6 +72,7 @@ export function addEvent(f){
       headers:{
         'Content-Type':'application/json',
         'Accept':'application/json',
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify({
         time_start: f.time_start,
@@ -85,8 +92,20 @@ export function addEvent(f){
   // .then(dispatch(push('/event')))
   }
 }
-export function setCurrentEvent(f){
-  return {type: SET_CURRENT_EVENT, event: f}
+export function setCurrentEvent(id){
+  return function(dispatch){
+    return fetch(`http://localhost:3000/events/${id}`,{
+      headers:{
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    )
+    .then(res=> res.json())
+    .then(json=>{
+      dispatch({type: SET_CURRENT_EVENT, event: json})
+      return true
+    })
+  }
 }
 
 export function getUserGames(id){
@@ -95,7 +114,7 @@ export function getUserGames(id){
     .then(res => res.json())
     .then(user_games =>{
       let r = user_games.filter(x => x.user_id === id)
-      dispatch({type: GET_USER_GAMES, payload: r})
+      dispatch({type: GET_USER_GAMES, payload: r, id: id})
     })
   }
 }
@@ -105,8 +124,51 @@ export function getUsers(){
     fetch('http://localhost:3000/users')
     .then(res => res.json())
     .then(json =>{
+      console.log(json)
       dispatch({type: GET_USERS, payload: json})
     }
     )
   }
+}
+
+export function setFriends(friends){
+  return {type: SET_FRIENDS, payload: friends}
+}
+export function addFriend(friendId, userId){
+  return function(dispatch){
+  fetch('http://localhost:3000/friends',{
+method: "POST",
+headers:{
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  Authorization: `Bearer ${localStorage.getItem("token")}`
+},
+body: JSON.stringify({friend:{
+  invitor_id: userId,
+  invitee_id: friendId
+}})
+}).then(res=> res.json())
+.then(json=>{
+  dispatch({type: ADD_FRIEND, payload: json.invitee})
+})
+}
+}
+
+export function dropGame(userGameId){
+  return function(dispatch){
+  fetch(`http://localhost:3000/user_games/${userGameId}`,{
+    method:'PATCH',
+    headers:{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    body:JSON.stringify({user_game:{
+      active:false
+    }})
+  }).then(res => res.json())
+  .then(json=>{
+    dispatch({type:DROP_GAME, id: userGameId, userGame: json})
+  })
+}
 }

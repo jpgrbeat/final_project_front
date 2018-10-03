@@ -26,7 +26,10 @@ class AddEvent extends React.Component{
     return(
       <div id='event-form'>
         <h1>New Event</h1>
-        <Form onSubmit={()=>this.props.addEvent(this.state)}>
+        <Form onSubmit={()=>{
+          this.props.addEvent(this.state)
+          this.props.history.push('/profile')
+        }}>
         <DateTimeForm setDateTime={this.onChangeHandler}/>
         <Form.Field>
         <label>Name of Event</label>

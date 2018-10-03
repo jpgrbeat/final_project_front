@@ -10,7 +10,7 @@ class Events extends React.Component{
   render(){
     return(
       <div>
-        Events
+        <h2>Events</h2>
         {this.props.events  ? this.props.events.map(event => <Event event={event}/> ):null}
       </div>
     )

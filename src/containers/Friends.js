@@ -1,21 +1,49 @@
 import React from 'react'
-import { Image, List, Header,Icon } from 'semantic-ui-react'
+import {
+  Image,
+  List,
+  Header,
+  Icon,
+  Segment
+} from 'semantic-ui-react'
+import FriendItem from '../components/FriendItem'
+import {
+  connect
+} from 'react-redux'
+import {setFriends} from '../redux/actions/index.js'
+class Friends extends React.Component {
+  state = {
+    friends: []
+  }
 
+  render() {
+    console.log('friends',this.props)
+    return ( <
+      div style = {
+        {
+          margin: '10%',
+          align: 'center'
+        }
+      } >
+      <Segment size='medium'  color='yellow' >
 
-class Friends extends React.Component{
-  render(){
-    return(
-      <div style={{ margin: '10%'}}>
-  <Header as='h2' icon textAlign='center'>
-    <Icon name='users' circular />
-    <Header.Content>Friends</Header.Content>
-  </Header>
-    <List horizontal>
-  </List>
-  </div>
-  )
+      <Header as = 'h2'icon textAlign = 'center' >
+      <Icon name = 'users' circular />
+      <Header.Content > Friends </Header.Content>
+      </Header >
+      <List horizontal >
+        {this.props.friends ? this.props.friends.map(friend =>
+          <FriendItem friend={friend}/>) : null}
+      </List>
+      </Segment>
+      </div >
+    )
   }
 }
 
-// const mapStateToProps=(state)=>{return{friends: state.friends}}
-export default Friends
+const mapStateToProps = (state) => {
+  return {
+    friends: state.friends
+  }
+}
+export default connect(mapStateToProps)(Friends)

@@ -21,7 +21,10 @@ import {Link} from 'react-router-dom'
     }
   render(){
     return(
-      <Form onSubmit={this.props.editUser(this.state)} style={{padding: '10%', width: '50%', margin: 'auto'}}>
+      <Form onSubmit={
+        this.props.editUser(this.state)
+
+      } style={{padding: '10%', width: '50%', margin: 'auto'}}>
       <Form.Field>
         <label>Name</label>
         <input value= {this.state.name} onChange={(e) => this.changeHandler(e.target.value,'name')} placeholder="Name"/>

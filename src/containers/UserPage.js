@@ -6,14 +6,27 @@ import Login from '../forms/Login'
 import Friends from '../containers/Friends'
 import Events from '../containers/Events'
 import ProfileGameContainer from '../containers/ProfileGameContainer'
+import {setActiveUser, setFriends} from '../redux/actions/index'
+
 class Profile extends React.Component{
-
+    state={
+      friends:[]
+    }
+  createFriends(){
+    let f = [...this.props.user.invitors,...this.props.user.invitees]
+    console.log('mop',f)
+    this.setState({friends: f})
+    this.props.setFriends(f)
+  }
   render(){
+    this.props.user && this.state.friends.length === 0 ? this.createFriends() : null
 
+    console.log('state',this.state)
+    this.props.setActiveUser(this.props.user)
     return <div id='user-page'>
-    {this.props.user !== null ? <div id= 'right-el'><UserCard user={this.props.user}/></div> : null}
+    {this.props.user !== null ? <div id= 'right-el'><UserCard history={this.props.history} user={this.props.user}/></div> : null}
     <div id= 'middle-el'>
-      <Friends />
+      <Friends/>
     </div>
     <div id= 'left-el'>
       <Calendar/>
@@ -22,11 +35,12 @@ class Profile extends React.Component{
     <Events/>
     </div>
     <div id='user-games'>
-    {this.props.user !== null ? <ProfileGameContainer/> : null}
+    {this.props.user ? <ProfileGameContainer/> : null}
     </div>
     </div>
   }
 }
 
 
-export default Profile
+
+export default connect (null,{setActiveUser,setFriends}) (Profile)

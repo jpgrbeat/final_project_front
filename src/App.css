@@ -23,10 +23,10 @@ div#right-el{
 
 div#middle-el{
   margin: 10px;
-  grid-column-start: 4;
+  grid-column-start: 2;
   grid-column-end: end;
   grid-row-start: 2;
-  grid-row-end: end;
+  grid-row-end: 4;
 }
 div#left-el{
   margin: 5px;
@@ -63,4 +63,8 @@ div#inner-event-el{
 }
 .ui.modal{
  top: 10%;
+}
+.event-profile:hover{
+  color: purple;
+  cursor: pointer;
 }

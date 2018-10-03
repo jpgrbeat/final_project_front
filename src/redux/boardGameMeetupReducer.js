@@ -1,7 +1,5 @@
 import {combineReducers} from 'redux'
 
-
-
 function userReducer (state=[],action){
   switch(action.type){
     case 'UPDATE_USER':
@@ -53,10 +51,14 @@ function userReducer (state=[],action){
   }
   function userGamesReducer(state=[],action){
     switch (action.type){
-    case 'GET_USER_GAMES':
-      return action.payload
-    default:
-      return state;
+      case 'GET_USER_GAMES':
+        return action.payload.filter(userGame => userGame.active ===  true && userGame.user_id === action.id)
+      case 'DROP_GAME':
+        return state.filter(
+          userGame => (userGame.id !== action.id)
+        )
+      default:
+        return state;
     }
   }
   function usersReducer(state=[],action){
@@ -68,6 +70,18 @@ function userReducer (state=[],action){
     }
   }
 
+function friendsReducer(state=[], action){
+  switch (action.type) {
+    case 'SET_FRIENDS':
+      return action.payload
+    case 'ADD_FRIEND':
+      return [...state, action.payload]
+
+    default:
+      return state;
+  }
+}
+
 const rootReducer=combineReducers({
   users: userReducer,
   activeUser: activeUserReducer,
@@ -75,6 +89,7 @@ const rootReducer=combineReducers({
   currentEvent: currentEventReducer,
   games: gamesReducer,
   userGames: userGamesReducer,
-  users: usersReducer
+  users: usersReducer,
+  friends: friendsReducer
 })
 export default rootReducer

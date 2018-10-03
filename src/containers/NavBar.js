@@ -1,6 +1,6 @@
 import React from 'react'
 import FriendSearch from '../forms/FriendSearch'
-import {Menu,Dropdown} from 'semantic-ui-react'
+import {Menu,Dropdown,Search} from 'semantic-ui-react'
 import { NavLink } from "react-router-dom"
 import {connect} from 'react-redux'
 
@@ -42,6 +42,7 @@ import {connect} from 'react-redux'
             active={activeItem === 'Find Friends'}
             exact to = 'add_friends'
             onClick={this.handleItemClick}
+
           />
 
           <Menu.Item
@@ -64,7 +65,6 @@ import {connect} from 'react-redux'
             active={activeItem === 'Logout'}
             onClick={this.props.logout}
           />
-
         </Menu>
       </div>
 
