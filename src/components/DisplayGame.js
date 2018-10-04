@@ -1,26 +1,14 @@
 import React from 'react'
 import {Button, Grid} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-
+import {addUserGame} from '../redux/actions/index'
 
 const DisplayGame=(props)=>{
   function clickHandler(event){
     let gameId = event.target.parentNode.id
     let userId = props.user.id
-    fetch('http://localhost:3000/user_games',{
-    method: 'POST',
-    headers:{
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    },
-    body:JSON.stringify({user_game:{
-      user_id: userId,
-      game_id: gameId
-    }})
-  })
-  .then(res => res.json())
-  .then(json => console.log(json))
+
+    props.addUserGame(gameId,userId)
 
   }
   return(
@@ -41,4 +29,4 @@ const DisplayGame=(props)=>{
 const  mapStateToProps=(state)=>{
   return{ user: state.activeUser}
 }
-export default connect(mapStateToProps)(DisplayGame)
+export default connect(mapStateToProps, {addUserGame})(DisplayGame)

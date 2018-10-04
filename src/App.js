@@ -47,7 +47,7 @@ class App extends React.Component {
 
   updateUser = user => {
 
-    this.setState({ user },()=> console.log(this.state));
+    // this.setState({ user },()=> console.log(this.state));
     this.props.setActiveUser(user)
     this.props.getUsers()
     console.log('update_uder',user)
@@ -83,7 +83,7 @@ class App extends React.Component {
           )}/>
           <Route exact path='/login' render={(props) => <Login {...props} updateUser={this.updateUser}  />} />
           <Route exact path= '/new_user' render={(props) => <CreateNewUser {...props}/>}/>
-          <Route exact path= '/profile' render={(props) => <Profile{...props} user={this.state.user}/>}/>
+          <Route exact path= '/profile' render={(props) => <Profile{...props} />}/>
           <Route exact path = '/add_event' render={(props) =>< AddEvent {...props} />}/>
           <Route exact path= '/edit_user' render={(props) => <EditUser {...props} />}/>
           <Route to path= '/event' render={(props) => <EventShow {...props} />}/>

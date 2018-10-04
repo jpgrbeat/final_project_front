@@ -42,5 +42,7 @@ class Profile extends React.Component{
 }
 
 
-
-export default connect (null,{setActiveUser,setFriends}) (Profile)
+const mapStateToProps=(state)=>{return{
+  user: state.activeUser 
+}}
+export default connect (mapStateToProps,{setActiveUser,setFriends}) (Profile)

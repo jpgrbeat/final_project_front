@@ -57,6 +57,8 @@ function userReducer (state=[],action){
         return state.filter(
           userGame => (userGame.id !== action.id)
         )
+      case 'ADD_USER_GAME':
+        return [...state, action.game]
       default:
         return state;
     }

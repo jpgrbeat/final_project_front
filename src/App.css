@@ -68,3 +68,7 @@ div#inner-event-el{
   color: purple;
   cursor: pointer;
 }
+.four.wide.column{
+  overflow: auto;
+  height: 900px;
+}

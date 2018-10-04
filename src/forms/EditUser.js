@@ -21,9 +21,10 @@ import {Link} from 'react-router-dom'
     }
   render(){
     return(
-      <Form onSubmit={
-        this.props.editUser(this.state)
-
+      <Form onSubmit={()=> {
+          this.props.editUser(this.state);
+          this.props.history.push('/profile');
+        }
       } style={{padding: '10%', width: '50%', margin: 'auto'}}>
       <Form.Field>
         <label>Name</label>
@@ -46,7 +47,7 @@ import {Link} from 'react-router-dom'
         <input  value= {this.state.img} onChange={(e) => this.changeHandler(e.target.value,'img')} placeholder="Insert jpg link here"/>
       </Form.Field>
       <Form.TextArea value= {this.state.description} onChange={(e) => this.changeHandler(e.target.value,'description')} label='About' placeholder='Tell everyone what kind of gamer you are...' />
-      <Button type='submit'><Link to='/profile'>Edit</Link></Button>
+      <Button type='submit'>Edit</Button>
       </Form>
     )
   }

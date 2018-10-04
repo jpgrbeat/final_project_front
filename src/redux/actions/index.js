@@ -9,7 +9,8 @@ import{
   GET_USERS,
   SET_FRIENDS,
   DROP_GAME,
-  ADD_FRIEND
+  ADD_FRIEND,
+  ADD_USER_GAME
 } from'./types'
 import { push } from 'react-router-redux';
 
@@ -38,8 +39,8 @@ export function editUser(user){
   })
   .then(res => res.json())
   .then(json=>{
-    dispatch({type: EDIT_USER, user: user})
-    return true
+    console.log('here:::', json);
+    dispatch({type: EDIT_USER, user: json})
   })
 }
 }
@@ -171,4 +172,26 @@ export function dropGame(userGameId){
     dispatch({type:DROP_GAME, id: userGameId, userGame: json})
   })
 }
+}
+
+export function addUserGame(gameId,userId){
+  return function(dispatch){
+
+
+      fetch('http://localhost:3000/user_games',{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body:JSON.stringify({user_game:{
+        user_id: userId,
+        game_id: gameId
+      }})
+    })
+    .then(res => res.json())
+    .then(json => dispatch({type: ADD_USER_GAME, game: json}))
+
+  }
 }
