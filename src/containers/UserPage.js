@@ -14,14 +14,12 @@ class Profile extends React.Component{
     }
   createFriends(){
     let f = [...this.props.user.invitors,...this.props.user.invitees]
-    console.log('mop',f)
     this.setState({friends: f})
     this.props.setFriends(f)
   }
   render(){
     this.props.user && this.state.friends.length === 0 ? this.createFriends() : null
 
-    console.log('state',this.state)
     this.props.setActiveUser(this.props.user)
     return <div id='user-page'>
     {this.props.user !== null ? <div id= 'right-el'><UserCard history={this.props.history} user={this.props.user}/></div> : null}
@@ -43,6 +41,6 @@ class Profile extends React.Component{
 
 
 const mapStateToProps=(state)=>{return{
-  user: state.activeUser 
+  user: state.activeUser
 }}
 export default connect (mapStateToProps,{setActiveUser,setFriends}) (Profile)

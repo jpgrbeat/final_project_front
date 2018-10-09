@@ -9,7 +9,6 @@ class ProfileGameContainer extends React.Component{
     open: false
   }
   changeHandler=(event,data)=>{
-    console.log('boom')
     let game = this.props.user.games.find(game => game.id === data.value)
     this.setState({
       activeGame: game,
@@ -23,9 +22,7 @@ class ProfileGameContainer extends React.Component{
   }
 
   onDrop=()=>{
-    console.log(this.props)
     let id = this.props.userGames.find(userGame=> userGame.user_id === this.props.user.id && userGame.game_id === this.state.activeGame.id)
-    console.log(id)
     this.setState({
       open:false
     })
@@ -58,7 +55,6 @@ class ProfileGameContainer extends React.Component{
   }
 }
 const mapStateToProps=(state)=>{
-  console.log(state)
   return ({
     user: state.activeUser,
     userGames: state.userGames

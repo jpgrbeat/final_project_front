@@ -17,7 +17,6 @@ class Friends extends React.Component {
   }
 
   render() {
-    console.log('friends',this.props)
     return ( <
       div style = {
         {
@@ -25,7 +24,7 @@ class Friends extends React.Component {
           align: 'center'
         }
       } >
-      <Segment size='medium'  color='yellow' >
+      <Segment size='mini'  color='yellow' >
 
       <Header as = 'h2'icon textAlign = 'center' >
       <Icon name = 'users' circular />

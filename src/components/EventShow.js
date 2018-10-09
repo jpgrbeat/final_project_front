@@ -76,10 +76,6 @@ class EventShow extends React.Component{
 })
   }
   render(){
-//     if(this.props.event && this.state.event_users.length === 0 && this.state.event_games.length === 0){
-//     this.setGames()
-//     this.setFriends()
-// }
   return(
     <Grid columns={3} divided style={{padding:'0 24px'}}>
     <Grid.Row style={{textAlign:'center'}}>
@@ -117,6 +113,7 @@ class EventShow extends React.Component{
       </Grid.Column>
       <Grid.Column style={{paddingTop:'40px'}}>
       <h3> Add Games to Event</h3>
+
         {this.props.user ? this.props.user.games.map(game => <EventGame gameClick={this.gameClick} game= {game}/>) : null}
       </Grid.Column>
       </Grid.Row>

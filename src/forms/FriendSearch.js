@@ -14,7 +14,6 @@ state={
 }
 
   changeHandler=(event, data)=>{
-    console.log(data.value)
     let friend = this.props.users.find(user=> user.id === data.value)
     this.setState({
       selected:true,
@@ -24,8 +23,6 @@ state={
 
  render() {
    this.props.users ? source = this.props.users.map(user=>{return{ text: user.name, image: user.img, description: user.username, value: user.id}}): null
-   console.log(source)
-   console.log(this.state.selectedUser)
    return (
      <div>
       <Dropdown

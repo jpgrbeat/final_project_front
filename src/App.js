@@ -33,34 +33,27 @@ class App extends React.Component {
   }
 
   fetchUser = () => {
-    console.log('fetch')
     requestHelper("http://localhost:3000/me").then(user => {this.updateUser(user)
   });
   }
 
   componentDidMount(){
-    console.log('mounted')
     if (localStorage.getItem("token")) {
       this.fetchUser();
     }
   }
 
   updateUser = user => {
-
-    // this.setState({ user },()=> console.log(this.state));
     this.props.setActiveUser(user)
     this.props.getUsers()
-    console.log('update_uder',user)
-
     this.props.getUserGames(user.id)
     this.props.getGames()
   }
 
   logout=()=>{
-    this.setState({ user:null})
     localStorage.clear()
-    this.props.history.push('/profile')
-
+    this.props.history.push('/')
+    this.props.setActiveUser({user:null})
   }
 
   render(){
@@ -71,7 +64,7 @@ class App extends React.Component {
       <Route exact path='/' render={() => (
             <React.Fragment>
               <div id="welcome">
-                <h1> Welcome to Clever Name</h1>
+                <h1> Welcome to Board Meeting!</h1>
                 <p>The site built to bring Boardgamers together</p>
                 <p>Create events and invite your friends or just about anyone</p>
                 <p>Login or create an account to get started!</p>
@@ -96,6 +89,7 @@ class App extends React.Component {
 }
 const mapStateToProps=(state)=>{
   return({
+    user: state.activeUser,
     users: state.users,
     userGames: state.userGames,
   })

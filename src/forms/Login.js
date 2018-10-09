@@ -27,11 +27,13 @@ import {Button, Form} from 'semantic-ui-react'
         }
       })
       .then(json => {
-        const user = {...json.user, games: json.user_games, invitee_friends: json.invitee_friends, invitor_friends: json.invitor_friends}
+        const user = {...json.user, games: json.user_games, invitees: json.invitees, invitors: json.invitors}
         this.props.updateUser(user);
+        console.log('login', user)
+        this.props.setActiveUser(user)
         localStorage.setItem("token", json.token);
         this.props.history.push('/profile')
-        this.props.setActiveUser(json.user)
+
       });
   };
   render(){
