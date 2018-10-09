@@ -39,7 +39,6 @@ export function editUser(user){
   })
   .then(res => res.json())
   .then(json=>{
-    console.log('here:::', json);
     dispatch({type: EDIT_USER, user: json})
   })
 }
@@ -125,7 +124,6 @@ export function getUsers(){
     fetch('http://localhost:3000/users')
     .then(res => res.json())
     .then(json =>{
-      console.log(json)
       dispatch({type: GET_USERS, payload: json})
     }
     )

@@ -13,7 +13,6 @@ function userReducer (state=[],action){
   function activeUserReducer(state=null,action){
     switch(action.type){
       case 'SET_ACTIVE_USER':
-      console.log('here')
         return action.user
       case 'EDIT_USER':
         return action.user
