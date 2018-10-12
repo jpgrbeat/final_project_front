@@ -72,3 +72,118 @@ div#inner-event-el{
   overflow: auto;
   height: 900px;
 }
+
+.grid-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 32px 1.5fr 0.1fr 1.2fr 1.5fr 36px;
+  grid-template-rows: 50px 37px 500px 37px 37px 500px;
+  grid-gap: 3px 3px;
+  grid-template-areas: ". . event-page-header event-page-header . ." ". event-header . friends-coming-header games-coming-header ." ". event-details event-details friends-coming-list games-coming-list ." ". event-details event-details friends-coming-list games-coming-list ." ". comments-header . friends-list-header games-list-header ." ". comments-list . friends-list games-list .";
+  background-color: #eceaf2;
+}
+
+.event-page-header { grid-area: event-page-header; }
+
+.event-details { grid-area: event-details; }
+
+.friends-coming-header {
+  grid-area: friends-coming-header;
+  text-align: center;
+  background-color: #ca93d6;
+  border-radius: 10px;
+  color: #efefe3;
+  border-style: solid;
+  border-color: #efefe3;
+}
+
+.friends-coming-list {
+  margin-top: 10px;
+  grid-area: friends-coming-list;
+  overflow: auto;
+  margin-top: 10px;
+  background-color: #f2f2f2;
+  border-color: black;
+  border-style: solid;
+  border-radius: 15px;
+ }
+
+.games-coming-list {
+  grid-area: games-coming-list;
+  overflow: auto;
+  margin-top: 10px;
+  border-color: black;
+  border-style: solid;
+  border-radius: 15px;
+  background-color: #f2f2f2;
+
+}
+
+.games-coming-header {
+  grid-area: games-coming-header;
+  background-color: #ca93d6;
+  text-align: center;
+  border-radius: 10px;
+  color: #efefe3;
+  border-style: solid;
+  border-color: #efefe3;
+}
+
+.comments-header {
+  grid-area: comments-header;
+  background-color: #ca93d6;
+  text-align: center;
+  border-radius: 10px;
+  color: #efefe3;
+  border-style: solid;
+  border-color: #efefe3;
+}
+
+.comments-list {
+  margin-top: 10px;
+  grid-area: comments-list;
+  overflow: auto;
+}
+
+.friends-list-header {
+  grid-area: friends-list-header;
+   background-color: #ca93d6;
+   text-align: center;
+   border-radius: 10px;
+   color: #efefe3;
+   border-style: solid;
+   border-color: #efefe3;
+ }
+
+.friends-list {
+  margin-top: 10px;
+   grid-area: friends-list;
+   overflow: auto;
+   border-color: black;
+   border-style: solid;
+   border-radius: 15px;
+   background-color: #f2f2f2;
+ }
+
+.games-list-header {
+  grid-area: games-list-header;
+  background-color: #ca93d6;
+  text-align: center;
+  border-radius: 10px;
+  color: #efefe3;
+  border-style: solid;
+  border-color: #efefe3;
+
+}
+
+.games-list {
+  margin-top: 10px;
+  grid-area: games-list;
+  overflow: auto;
+  border-color: black;
+  border-style: solid;
+  border-radius: 15px;
+  background-color: #f2f2f2;
+}
+
+.event-header { grid-area: event-header; }

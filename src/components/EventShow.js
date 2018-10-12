@@ -17,7 +17,6 @@ class EventShow extends React.Component{
       this.setGames()
       this.setFriends()
     })
-    console.log('event props',this.props)
   }
 
   setGames=()=>{
@@ -31,6 +30,10 @@ class EventShow extends React.Component{
       })
   }
   friendClick=(friend)=>{
+    let e_user = this.state.event_users.find(e_friend => e_friend.id === friend.id)
+    if(e_user){
+      alert('Friend already invited to event.')
+    }else{
     fetch('http://localhost:3000/user_events',{
       method: 'POST',
       headers:{
@@ -46,14 +49,18 @@ class EventShow extends React.Component{
     }
   ).then(res => res.json())
   .then(json => {
-    console.log(this.state)
     let friends = [...this.state.event_users,json.user]
     this.setState({
     event_users: friends
   })
 })
+}
   }
   gameClick=(game)=>{
+     let here = this.state.event_games.find(e_game => e_game.id === game.id)
+     if(here){
+       alert('Game is already coming to event')
+     }else{
     fetch('http://localhost:3000/event_games',{
       method: 'POST',
       headers:{
@@ -74,50 +81,61 @@ class EventShow extends React.Component{
     event_games: games
   })
 })
+}
   }
   render(){
   return(
-    <Grid columns={3} divided style={{padding:'0 24px'}}>
-    <Grid.Row style={{textAlign:'center'}}>
-      <h1>Event</h1>
-    </Grid.Row>
-    <Grid.Row>
-    {this.props.event ?
-      <Grid.Column>
+    <div class="grid-container">
+      <div class="event-page-header">
+        <h1>Event</h1>
+      </div>
 
+      <div class="event-header">
+      {this.props.event ?
         <h1>{this.props.event.title}</h1>
+        :null}
+      </div>
+      <div class="event-details">
+        {this.props.event ?
+          <div>
         <h3>Date: {this.props.event.date}</h3>
         <h3> Starts At: {this.props.event.time_start} | Ends At: {this.props.event.time_end}</h3>
         <a href= {`https://www.google.com/maps/dir/?api=1/${this.props.event.address}`}>  Location: {this.props.event.address}</a>
         <br></br>
         <h4>{this.props.event.description}</h4>
-      </Grid.Column> : null}
-      <Grid.Column>
+        </div>
+        : null}
+      </div>
+      <div class="friends-coming-header">
         <h2>Attending</h2>
-        {this.state.event_users.length > 0 ? this.state.event_users.map(user => <h4>{user.name}</h4>) : null}
-      </Grid.Column>
-      <Grid.Column>
-        <h2>Games At this Event</h2>
-        {this.props.event ? this.state.event_games.map(game => <h4>{game.name}</h4>): null}
-        </Grid.Column>
-    </Grid.Row>
-
-    <Grid.Row>
-
-    <Grid.Column>
-    </Grid.Column>
-
-      <Grid.Column style={{paddingTop:'40px'}}>
-      <h3> Invite Friends</h3>
+      </div>
+      <div class="friends-coming-list">
+        {this.state.event_users.length > 0 ? this.state.event_users.map(user => <h4 style={{marginLeft: '10px'}}>{user.name}</h4>) : null}
+      </div>
+      <div class="games-coming-header">
+        <h2> Games at This Event</h2>
+      </div>
+      <div class="games-coming-list">
+        {this.props.event ? this.state.event_games.map(game => <h4 style={{marginLeft: '10px'}}>{game.name}</h4>): null}
+      </div>
+      <div class="comments-header">
+        <h2>Comments</h2>
+      </div>
+      <div class="comments-list">
+      </div>
+      <div class="friends-list-header">
+      <h2> Invite Friends</h2>
+      </div>
+      <div class="friends-list">
         {this.props.user && this.props.user.invitors? this.props.user.invitors.concat(this.props.user.invitees).map(friend => <EventFriend friendClick={this.friendClick} friend={friend}/>) : null}
-      </Grid.Column>
-      <Grid.Column style={{paddingTop:'40px'}}>
-      <h3> Add Games to Event</h3>
-
-        {this.props.user ? this.props.user.games.map(game => <EventGame gameClick={this.gameClick} game= {game}/>) : null}
-      </Grid.Column>
-      </Grid.Row>
-    </Grid>
+      </div>
+      <div class="games-list-header">
+        <h2>Add Games</h2>
+      </div>
+      <div class="games-list">
+      {this.props.user ? this.props.user.games.map(game => <EventGame gameClick={this.gameClick} game= {game}/>) : null}
+      </div>
+    </div>
   )
 }
 }
