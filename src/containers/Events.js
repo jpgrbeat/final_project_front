@@ -10,7 +10,9 @@ class Events extends React.Component{
   render(){
     return(
       <div>
-        <h2>Events</h2>
+        <div id='event-header-profile'>
+          <h2>Events</h2>
+        </div>
         {this.props.events  ? this.props.events.map(event => <Event event={event}/> ):null}
       </div>
     )

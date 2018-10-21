@@ -60,6 +60,9 @@ class App extends React.Component {
     return (
       <React.Fragment>
       <NavBar logout={this.logout}/>
+      <div className='app-header'>
+        <h1>Board Meeting</h1>
+      </div>
       <Switch>
       <Route exact path='/' render={() => (
             <React.Fragment>

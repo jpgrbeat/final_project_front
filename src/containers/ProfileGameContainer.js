@@ -33,7 +33,6 @@ class ProfileGameContainer extends React.Component{
 
     return(
       <div>
-      <h2 style={{marginTop:'20px', marginLeft: '10px'}}> My Games</h2>
       <div id="games-dropdown">
         <Dropdown placeholder= 'Games...' fluid search selection options={games} onChange={this.changeHandler}/>
       </div>

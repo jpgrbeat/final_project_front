@@ -2,20 +2,24 @@ import React from 'react'
 import {connect} from 'react-redux'
 import EventFriend from '../components/EventFriend'
 import EventGame from '../components/EventGame'
-import {Grid, Header} from 'semantic-ui-react'
+import EventComment from './EventComment'
+import {Grid, Header,Comment,Form,Button} from 'semantic-ui-react'
 import {setCurrentEvent} from '../redux/actions/index'
 class EventShow extends React.Component{
   state={
     event_user: '',
     event_game: '',
     event_games: [],
-    event_users: []
+    event_users: [],
+    event_comments: []
   }
   componentDidMount(){
     let id = parseInt(this.props.history.location.pathname.split('/')[2])
     this.props.setCurrentEvent(id).then(()=>{
+
       this.setGames()
       this.setFriends()
+      this.setComments()
     })
   }
 
@@ -28,6 +32,11 @@ class EventShow extends React.Component{
       this.setState({
         event_users: this.props.event.users
       })
+  }
+  setComments=()=>{
+    this.setState({
+      event_comments: this.props.event.comments
+    })
   }
   friendClick=(friend)=>{
     let e_user = this.state.event_users.find(e_friend => e_friend.id === friend.id)
@@ -49,6 +58,7 @@ class EventShow extends React.Component{
     }
   ).then(res => res.json())
   .then(json => {
+
     let friends = [...this.state.event_users,json.user]
     this.setState({
     event_users: friends
@@ -57,31 +67,54 @@ class EventShow extends React.Component{
 }
   }
   gameClick=(game)=>{
-     let here = this.state.event_games.find(e_game => e_game.id === game.id)
-     if(here){
-       alert('Game is already coming to event')
-     }else{
-    fetch('http://localhost:3000/event_games',{
+    let here = this.state.event_games.find(e_game => e_game.id === game.id)
+         if(here){
+           alert('Game is already coming to event')
+         }else{
+        fetch('http://localhost:3000/event_games',{
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          body:JSON.stringify({
+            event_id: this.props.event.id,
+            game_id: game.id
+          })
+
+        }
+      ).then(res => res.json())
+      .then(json => {
+        let games = [...this.state.event_games, json.game]
+        this.setState({
+        event_games: games
+      })
+    })
+    }
+  }
+  addComment=(e)=>{
+
+    fetch('http://localhost:3000/comments',{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      body:JSON.stringify({
+      body: JSON.stringify({
         event_id: this.props.event.id,
-        game_id: game.id
+        user_id: this.props.user.id,
+        content: e.target.querySelector('textarea').value,
+        name: this.props.user.name
       })
-
-    }
-  ).then(res => res.json())
-  .then(json => {
-    let games = [...this.state.event_games, json.game]
-    this.setState({
-    event_games: games
-  })
-})
-}
+    }).then(res => res.json())
+    .then(json =>{
+      let comments = [...this.state.event_comments, json]
+      this.setState({
+        event_comments: comments
+      })
+    })
   }
   render(){
   return(
@@ -122,6 +155,11 @@ class EventShow extends React.Component{
         <h2>Comments</h2>
       </div>
       <div class="comments-list">
+        {this.props.event ? this.state.event_comments.map(comment => <EventComment comment={comment}/>) : null}
+      <Form style={{marginTop: '20px'}} onSubmit={this.addComment}>
+        <Form.TextArea />
+        <Button color='purple' content='Add Comment' labelPosition='left' icon='edit' primary />
+      </Form>
       </div>
       <div class="friends-list-header">
       <h2> Invite Friends</h2>

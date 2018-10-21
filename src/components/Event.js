@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {setCurrentEvent} from '../redux/actions/index'
 const Event=(props)=>{
- return <div id='event-el'>
+ return <div id='event-el' style={{marginLeft: '5px'}}>
   <Modal className='event-profile' size='small' trigger={<h3 className='event-profile'>{props.event.title}</h3>}centered={true}>
   <div id='inner-event-el'>
     <Modal.Header>{props.event.title}</Modal.Header>

@@ -2,6 +2,7 @@ import React from 'react'
 import {Segment,Image,Button} from 'semantic-ui-react'
 
 const EventFriend = props =>{
+
   return(
     <div>
     <Segment style={{margin:'10px'}} color='yellow' >

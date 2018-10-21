@@ -30,9 +30,9 @@ class AddEvent extends React.Component{
           this.props.addEvent(this.state)
           this.props.history.push('/profile')
         }}>
-        <DateTimeForm setDateTime={this.onChangeHandler}/>
+        <DateTimeForm  setDateTime={this.onChangeHandler}/>
         <Form.Field>
-        <label>Name of Event</label>
+        <label style={{marginTop: '5px'}}>Name of Event</label>
         <input onChange={(e)=>this.onChangeHandler('title', e.target.value)}/>
         </Form.Field>
         <Form.Field>

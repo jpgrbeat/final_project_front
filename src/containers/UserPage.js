@@ -13,6 +13,7 @@ class Profile extends React.Component{
       friends:[]
     }
   createFriends(){
+    console.log('createFriends',this.props.user)
     let f = [...this.props.user.invitors,...this.props.user.invitees]
     this.setState({friends: f})
     this.props.setFriends(f)
@@ -21,21 +22,30 @@ class Profile extends React.Component{
     this.props.user && this.state.friends.length === 0 ? this.createFriends() : null
 
     this.props.setActiveUser(this.props.user)
-    return <div id='user-page'>
-    {this.props.user !== null ? <div id= 'right-el'><UserCard history={this.props.history} user={this.props.user}/></div> : null}
-    <div id= 'middle-el'>
-      <Friends/>
-    </div>
-    <div id= 'left-el'>
-      <Calendar/>
-    </div>
-    <div id= 'bottom-left-el'>
-    <Events/>
-    </div>
-    <div id='user-games'>
-    {this.props.user ? <ProfileGameContainer/> : null}
-    </div>
-    </div>
+    return (
+      <div class="grid-container-profile">
+        <div class="big-calendar">
+          <Calendar/>
+        </div>
+        <div class="my-games-header">
+          <h2>My Games</h2>
+        </div>
+        {this.props.user ?
+        <div class="user-details">
+          <UserCard history={this.props.history} user={this.props.user}/>
+        </div>
+        :null}
+        <div class="friends-profile-container">
+          <Friends/>
+        </div>
+        <div class="events-profile">
+          <Events/>
+        </div>
+        <div class="profile-games">
+          {this.props.user ? <ProfileGameContainer/> : null}
+        </div>
+      </div>
+    )
   }
 }
 

@@ -1,43 +1,93 @@
 .App {
   text-align: center;
 }
-div#user-page {
-  display: grid;
-  grid-template-columns:repeat(6, [col-start] 1fr [col-end]);
-  grid-template-rows: repeat(6, [row-start] 1fr [row-end]) ;
+
+.app-header{
+  text-align: center;
+  background-color: #5e4e6d;
+  color: #eceaf2;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 40px;
 }
+
+.nav{
+
+}
+.nav Link{
+
+}
+.nav:hover{
+
+}
+
 div#welcome {
   width: 100%;
   margin: auto;
   text-align: center;
   padding: 10%;
 }
-
-div#right-el{
-  margin: 20px;
-  grid-column-start:4;
-  grid-column-end: end;
-  grid-row-start: 1;
-  grid-row-end: 3;
+.grid-container-profile {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 34px 66px 1fr 1.5fr 0.1fr 10px 1.5fr 0.3fr 192px 68px 32px;
+  grid-template-rows: 50px 50px 1fr 1fr 0.2fr 21.1px 10px 1.9fr 0.3fr;
+  grid-gap: 3px 3px;
+  grid-template-areas: ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . .";
+  background-color: #eceaf2;
 }
 
-div#middle-el{
-  margin: 10px;
-  grid-column-start: 2;
-  grid-column-end: end;
-  grid-row-start: 2;
-  grid-row-end: 4;
+.big-calendar {
+  grid-area: 2 / 2 / 5 / 6;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  border-color: black;
+  border-style: solid;
+ }
+ .Calendar{
+   align-self: center;
+   margin-left: 33px;
+ }
+
+.my-games-header {
+  grid-area: 2 / 7 / 3 / 8;
+  text-align: center;
+  background-color: #ca93d6;
+  border-radius: 10px;
+  color: #efefe3;
+  border-style: solid;
+  border-color: #efefe3;
 }
-div#left-el{
-  margin: 5px;
-  grid-column-start: 1;
-  grid-column-end: 2;
+
+.user-details { grid-area: 3 / 9 / 6 / 11; }
+
+.friends-profile-container { grid-area: 5 / 7 / 9 / 12; }
+
+#event-header-profile{
+  margin-top: 10px;
+  text-align: center;
+  background-color: #ca93d6;
+  border-radius: 10px;
+  color: #efefe3;
+  border-style: solid;
+  border-color: #efefe3;
 }
-div#bottom-left-el{
-  margin: 10px;
-  grid-row-start: 2;
-  grid-row-end: 5;
-}
+
+.events-profile {
+  grid-area: 6 / 2 / 9 / 4;
+
+  background-color: #f2f2f2;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+ }
+
+.profile-games { grid-area: 3 / 7 / 7 / 8; }
+
+
+
+
+
+
 #edit-user-button{
   margin: 5px;
 }
@@ -58,7 +108,7 @@ div#inner-event-el{
   border: 1px solid purple;
 }
 .game-name:hover{
-  color:red;
+  color:#5e4e6d;
   cursor: pointer;
 }
 .ui.modal{
@@ -83,7 +133,7 @@ div#inner-event-el{
   background-color: #eceaf2;
 }
 
-.event-page-header { grid-area: event-page-header; }
+.event-page-header { grid-area: event-page-header; text-align: center;}
 
 .event-details { grid-area: event-details; }
 
@@ -98,10 +148,10 @@ div#inner-event-el{
 }
 
 .friends-coming-list {
+  padding: 5px;
   margin-top: 10px;
   grid-area: friends-coming-list;
   overflow: auto;
-  margin-top: 10px;
   background-color: #f2f2f2;
   border-color: black;
   border-style: solid;
@@ -109,6 +159,7 @@ div#inner-event-el{
  }
 
 .games-coming-list {
+  padding: 5px;
   grid-area: games-coming-list;
   overflow: auto;
   margin-top: 10px;
@@ -187,3 +238,41 @@ div#inner-event-el{
 }
 
 .event-header { grid-area: event-header; }
+
+.comment{
+  background-color:#f2f2f2 !important;
+  border-radius: 10px !important;
+  border-color: #3c3b3d !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+#event-form{
+  padding: 70px;
+}
+.form.ui.form{
+  width: 600px !important;
+}
+#game{
+  text-align: center;
+  background-color: #b9b7bc;
+  border-radius: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+ #event-comment{
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  margin: 2px;
+  padding:4px;
+  border-color: #b9b7bc;
+  border-style: solid;
+}
+#event-comment p{
+  text-align: right;
+  margin-right: 5px;
+}
+#event-comment h5{
+  text-align: left;
+}
